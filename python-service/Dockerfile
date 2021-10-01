@@ -1,6 +1,8 @@
 FROM python:3.8-slim-buster
 
-RUN apt-get update && apt-get install -y tesseract-ocr
+RUN apt-get update && apt-get install -y apt-transport-https
+
+RUN apt-get install -y tesseract-ocr
 
 RUN apt-get install ffmpeg libsm6 libxext6  -y
 
