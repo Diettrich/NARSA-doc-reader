@@ -203,3 +203,13 @@ def mainAPI():
         'status': 'success',
         'result': result
     }
+
+@app.route("/api/test", methods=['GET'])
+def testAPI():
+    return {
+        'status': 'success',
+        'result': 'test'
+    }
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')

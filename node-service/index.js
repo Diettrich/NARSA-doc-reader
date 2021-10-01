@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const PORT = process.env.PORT || 3000;
 
 app.use(express.static('public'));
 app.use('/bootstrap/dist/css', express.static(path.join(__dirname, './node_modules/bootstrap/dist/css')));
@@ -11,6 +12,6 @@ app.get('/', (req, res) => {
     res.redirect('/index/html');
 });
 
-app.listen(3000, () => {
-    console.log('Example app listening on port 3000!');
+app.listen(PORT, () => {
+    console.log(`Example app listening on port ${PORT}!`);
 });
