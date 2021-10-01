@@ -1,12 +1,12 @@
-FROM python:3.8-slim-buster
+FROM python:3
 
-RUN apt-get update && apt-get install -y apt-transport-https
+# RUN apt-get update && apt-get install -y apt-transport-https
+
+WORKDIR /usr/src/app
 
 RUN apt-get install -y tesseract-ocr
 
 RUN apt-get install ffmpeg libsm6 libxext6  -y
-
-WORKDIR /app
 
 COPY requirements.txt requirements.txt
 
