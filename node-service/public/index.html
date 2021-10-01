@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="/bootstrap/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <!-- load cropperJs -->
+    <link href="/cropperjs/cropper.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="./css/index.css" />
+
+    <title>NARSA scan checker</title>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">NARSA scan checker</a>
+      </div>
+    </nav>
+    <div class="container" style="height: 100vh">
+      <div class="row">
+        <div class="col-12 col-xl-4 first-col">
+          <div class="inside-col">
+            <!-- 1 -->
+            <div class="empty-img-container">
+              <div class="empty-img" id="imgContainer">
+                <img id="img-CIN1" alt="CIN 1" src="#" />
+              </div>
+              <div class="btn-group">
+                <label for="CIN1" class="label-file btn btn-outline-primary"
+                  >Choisir CIN (face)</label
+                >
+                <input
+                  type="file"
+                  id="CIN1"
+                  name="CIN1"
+                  class="input-file"
+                  accept="image/*"
+                />
+                <button
+                  type="button"
+                  disabled
+                  class="btn btn-outline-primary label-file"
+                  id="Edit1"
+                >
+                  Éditer
+                </button>
+              </div>
+            </div>
+            <!-- 2 -->
+            <div class="empty-img-container">
+              <div class="empty-img">
+                <img id="img-CIN2" alt="CIN 2" src="#" />
+              </div>
+              <div class="btn-group">
+                <label for="CIN2" class="label-file btn btn-outline-primary"
+                  >Choisir CIN (dos)</label
+                >
+                <input
+                  type="file"
+                  id="CIN2"
+                  name="CIN2"
+                  class="input-file"
+                  accept="image/*"
+                />
+                <button
+                  type="button"
+                  disabled
+                  class="btn btn-outline-primary label-file"
+                  id="Edit2"
+                >
+                  Éditer
+                </button>
+              </div>
+            </div>
+            <!-- 3 -->
+            <div class="empty-img-container">
+              <div class="empty-img">
+                <img id="img-PERMIS1" alt="PERMIS 1" src="#" />
+              </div>
+              <div class="btn-group">
+                <label for="PERMIS1" class="label-file btn btn-outline-primary"
+                  >Choisir Permis (face)</label
+                >
+                <input
+                  type="file"
+                  id="PERMIS1"
+                  name="PERMIS1"
+                  class="input-file"
+                  accept="image/*"
+                />
+                <button
+                  type="button"
+                  disabled
+                  class="btn btn-outline-primary label-file"
+                  id="Edit-PERMIS1"
+                >
+                  Éditer
+                </button>
+              </div>
+            </div>
+            <!-- 4 -->
+            <div class="empty-img-container">
+              <div class="empty-img">
+                <img id="img-PERMIS2" alt="PERMIS 2" src="#" />
+              </div>
+              <div class="btn-group">
+                <label for="PERMIS2" class="label-file btn btn-outline-primary"
+                  >Choisir Permis (dos)</label
+                >
+                <input
+                  type="file"
+                  id="PERMIS2"
+                  name="PERMIS2"
+                  class="input-file"
+                  accept="image/*"
+                />
+                <button
+                  type="button"
+                  disabled
+                  class="btn btn-outline-primary label-file"
+                  id="Edit-PERMIS2"
+                >
+                  Éditer
+                </button>
+              </div>
+            </div>
+
+            <div id="submit">
+              <button type="button" class="btn btn-primary">Envoyer</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2eme colone (tableau) -->
+        <div class="col-12 col-xl-8">
+          <table class="table table-striped validate-table">
+            <thead>
+              <tr>
+                <th scope="col">Champ</th>
+                <th scope="col">Données extraites</th>
+                <th scope="col">Conforme/Éxiste</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Nom</th>
+                <td id="predicted-name"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">Prènom</th>
+                <td id="predicted-family-name"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">Date de naissance</th>
+                <td id="predicted-date"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">lieu de naissance</th>
+                <td id="predicted-place"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">valable jusqu'au</th>
+                <td id="predicted-valid-date"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">ID</th>
+                <td id="predicted-id"></td>
+                <td></td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr>
+                <th scope="row">ID (dos de CIN)</th>
+                <td id="predicted-id-back"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">valable jusqu'au (dos de CIN)</th>
+                <td id="predicted-valid-date-back"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">fils/fille de</th>
+                <td id="predicted-father"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">et de</th>
+                <td id="predicted-mother"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">adresse</th>
+                <td id="predicted-address"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">N° état civil</th>
+                <td id="predicted-marital-status"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">sexe</th>
+                <td id="predicted-gender"></td>
+                <td></td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr>
+                <th scope="row">Permis N°</th>
+                <td id="predicted-num-permis"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">Nom (Permis)</th>
+                <td id="predicted-name-permis"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">Prénom (Permis)</th>
+                <td id="predicted-family-name-permis"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">Date de naissance (Permis)</th>
+                <td id="predicted-birthdate-permis"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">Lieu de naissance (Permis)</th>
+                <td id="predicted-birth-place-permis"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">N° C.N.I.E (Permis)</th>
+                <td id="predicted-CNI"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">Délivré à</th>
+                <td id="predicted-delivred-time"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">Type</th>
+                <td id="predicted-type"></td>
+                <td></td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr>
+                <th scope="row">Duplicata le</th>
+                <td id="predicted-duplicata"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">Fin de validité</th>
+                <td id="predicted-validity"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">Série 1</th>
+                <td id="predicted-serie-1"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">Série 2</th>
+                <td id="predicted-serie-2"></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- #################### Modal ####################-->
+    <!-- ---------------------------------------------- -->
+
+    <div
+      class="modal fade"
+      id="modal"
+      tabindex="-1"
+      aria-labelledby="ModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalLabel">
+              Éditer et cadrer l'image
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <img id="image" />
+          </div>
+          <div class="modal-footer">
+            <div
+              id="rotate-buttons-1"
+              class="btn-group mr-2"
+              role="group"
+              aria-label="First group"
+            >
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="rotateToLeft()"
+              >
+                <img src="/icons/rotateLeft.svg" />
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="rotateToRight()"
+              >
+                <img src="/icons/rotateRight.svg" />
+              </button>
+            </div>
+            <div
+              id="rotate-buttons-2"
+              class="btn-group mr-2"
+              role="group"
+              aria-label="First group"
+            >
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="bigRotateToLeft()"
+              >
+                <img src="/icons/quarterLeft.svg" />
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="bigRotateToRight()"
+              >
+                <img src="/icons/quarterRight.svg" />
+              </button>
+            </div>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" id="save-button">
+              Save changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script
+      src="/bootstrap/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- load cropperJS -->
+    <script src="/cropperjs/cropper.js"></script>
+
+    <!-- Optional JavaScript -->
+    <script src="./js/index.js"></script>
+  </body>
+</html>

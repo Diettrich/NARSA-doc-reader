@@ -1,0 +1,99 @@
+.first-col {
+    /* height: 100vh; */
+}
+
+.inside-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    width: 100%;
+    margin-top: 24px;
+}
+
+.empty-img-container {
+    /* padding: 16px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.empty-img {
+    height: 220px;
+    width: 100%;
+    /* max-width: 300px; */
+    /* background-color: rgb(204, 204, 204); */
+    background: repeating-linear-gradient(45deg,
+            #b1b1b1,
+            #b1b1b1 10px,
+            #8d8d8d 10px,
+            #8d8d8d 20px);
+    border-radius: 9px;
+    border: 1px solid rgb(161, 161, 161);
+}
+
+#img-CIN1,
+#img-CIN2,
+#img-PERMIS1,
+#img-PERMIS2 {
+    display: none;
+    height: 100%;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.label-file {
+    margin: 24px auto;
+}
+
+/* .label-file:hover {} */
+
+
+.input-file {
+    display: none;
+}
+
+#submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.validate-table {
+    margin-top: 24px;
+}
+
+.modal-body {
+    padding: 0px;
+}
+
+/* in modal canvas */
+#canvas {
+    border: 1px solid #dee2e6;
+    display: block;
+
+    /* This rule is very important, please don't ignore this */
+    max-width: 100%;
+}
+
+.modal-body {
+    height: 500px;
+}
+
+#rotate-buttons-1 {
+    margin-left: auto;
+}
+
+#rotate-buttons-2 {
+    margin-right: auto;
+}
+
+/* Ensure the size of the image fit the container perfectly */
+img {
+    display: block;
+
+    /* This rule is very important, please don't ignore this */
+    max-width: 100%;
+    max-height: 100%;
+}

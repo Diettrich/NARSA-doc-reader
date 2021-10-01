@@ -1,0 +1,29 @@
+FROM ubuntu:16.04
+
+WORKDIR /app
+
+COPY . /app
+
+# install python and flask
+RUN apt-get update && apt-get install -y python3-pip && pip3 install flask
+
+# install nodejs
+RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+
+# install tesseract-ocr
+RUN apt-get install -y tesseract-ocr
+
+# pip install pytesseract opencv-python numpy
+RUN pip3 install pytesseract opencv-python numpy
+
+COPY node-service/package*.json ./node-service
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+EXPOSE 5000
+
+# run node-service/index.js and python-service/app.py
+CMD [./script.sh]
