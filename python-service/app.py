@@ -115,7 +115,7 @@ def readAndTransformImage(imageFromRequest):
     return image
 
 
-def getCinFace(requestFile):
+def getCinFront(requestFile):
     image = readAndTransformImage(requestFile)
 
     # coordinates of the 4 fields large space
@@ -173,6 +173,90 @@ def getCinBack(requestFile):
         'gender': gender,
     }
 
+def getCinBack(requestFile):
+    image = readAndTransformImage(requestFile)
+
+    # coordinates of the 4 fields large space
+    idField = Field(10, 2, 22, 8)
+    validDateField = Field(65, 2, 80, 9)
+    fatherNameField = Field(12, 23, 60, 29)
+    motherNameField = Field(10, 29, 60, 36)
+    addressField = Field(12.3, 48, 75, 56)
+    maritalStatusField = Field(20, 60, 40, 68)
+    genderField = Field(80, 60, 88, 68)
+
+    id = idField.getDataInIt(image)
+    validDate = validDateField.getDataInIt(image)
+    fatherName = fatherNameField.getDataInIt(image)
+    motherName = motherNameField.getDataInIt(image)
+    address = addressField.getDataInIt(image)
+    maritalStatus = maritalStatusField.getDataInIt(image)
+    gender = genderField.getDataInIt(image)
+
+    return {
+        'id': id,
+        'validDate': validDate,
+        'fatherName': fatherName,
+        'motherName': motherName,
+        'address': address,
+        'maritalStatus': maritalStatus,
+        'gender': gender,
+    }
+
+
+def getPermisFront(requestFile):
+    image = readAndTransformImage(requestFile)
+
+    nameField = Field(37, 33, 70, 39)
+    familyNameField = Field(37, 49, 70, 55)
+    dateField = Field(37, 60, 70, 66)
+    placeField = Field(37, 71, 70, 76)
+    deliveryPlaceField = Field(49, 81, 70, 85)
+    deliveryDateField = Field(45, 85, 63, 91)
+    permisTypeField = Field(39, 92, 42.5, 98)
+    permisNumberField = Field(69, 18, 85, 24)
+    CINField = Field(80, 60, 95, 66)
+
+    name = nameField.getDataInIt(image)
+    familyName = familyNameField.getDataInIt(image)
+    date = dateField.getDataInIt(image)
+    place = placeField.getDataInIt(image)
+    deliveryPlace = deliveryPlaceField.getDataInIt(image)
+    deliveryDate = deliveryDateField.getDataInIt(image)
+    permisType = permisTypeField.getDataInIt(image)
+    permisNumber = permisNumberField.getDataInIt(image)
+    CIN = CINField.getDataInIt(image)
+
+    return {
+        'name': name,
+        'familyName': familyName,
+        'date': date,
+        'place': place,
+        'deliveryPlace': deliveryPlace,
+        'deliveryDate': deliveryDate,
+        'permisType': permisType,
+        'permisNumber': permisNumber,
+        'CIN': CIN,
+    }
+
+
+def getPermisBack(requestFile):
+    image = readAndTransformImage(requestFile)
+
+    endOfValidity = Field(11, 63, 29, 70)
+    smallSerie = Field(5, 73, 35, 80)
+    largeSerie = Field(3, 86, 97, 97)
+
+    endOfValidity = endOfValidity.getDataInIt(image)
+    smallSerie = smallSerie.getDataInIt(image)
+    largeSerie = largeSerie.getDataInIt(image)
+
+    return {
+        'endOfValidity': endOfValidity,
+        'smallSeries': smallSerie,
+        'largeSeries': largeSerie,
+    }
+
 
 # handle post request having image in request data
 # return the same image in response
@@ -182,22 +266,22 @@ def mainAPI():
 
     if "CIN1" in request.files:
         file_CIN1 = request.files["CIN1"]
-        result["CIN1"] = getCinFace(file_CIN1)
-
-    print(result)
+        result["CIN1"] = getCinFront(file_CIN1)
 
     if "CIN2" in request.files:
         file_CIN2 = request.files["CIN2"]
         result["CIN2"] = getCinBack(file_CIN2)
-    # if "PERMIS1" in request.files:
-    #     file_PERMIS1 = request.files["PERMIS1"]
-    #     result["PERMIS1"] = getCinFace(file_PERMIS1)
+    if "PERMIS1" in request.files:
+        file_PERMIS1 = request.files["PERMIS1"]
+        result["PERMIS1"] = getPermisFront(file_PERMIS1)
 
-    # if "PERMIS2" in request.files:
-    #     file_PERMIS2 = request.files["PERMIS2"]
-    #     result["PERMIS2"] = getCinFace(file_PERMIS2)
+    if "PERMIS2" in request.files:
+        file_PERMIS2 = request.files["PERMIS2"]
+        result["PERMIS2"] = getPermisBack(file_PERMIS2)
 
-    print(result)
+    # print(result)
+
+    # print(result)
 
     return {
         'status': 'success',

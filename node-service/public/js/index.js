@@ -139,7 +139,7 @@ function submit() {
                         document.getElementById("predicted-family-name").innerHTML = data.result.CIN1.familyName;
                         document.getElementById("predicted-date").innerHTML = data.result.CIN1.date;
                         document.getElementById("predicted-place").innerHTML = data.result.CIN1.place;
-                        document.getElementById("predicted-valid-date").innerHTML = data.result.CIN1.date;
+                        document.getElementById("predicted-valid-date").innerHTML = data.result.CIN1.validDate;
                         document.getElementById("predicted-id").innerHTML = data.result.CIN1.id;
                     }
                     // predicted-id-back
@@ -158,7 +158,35 @@ function submit() {
                         document.getElementById("predicted-marital-status").innerHTML = data.result.CIN2.maritalStatus;
                         document.getElementById("predicted-gender").innerHTML = data.result.CIN2.gender;
                     }
-
+                    // predicted-num-permis
+                    // predicted-name-permis
+                    // predicted-family-name-permis
+                    // predicted-birthdate-permis
+                    // predicted-birth-place-permis
+                    // predicted-CNI
+                    // predicted-delivred-time
+                    // predicted-type
+                    if (data.result.PERMIS1) {
+                        document.getElementById("predicted-num-permis").innerHTML = data.result.PERMIS1.permisNumber;
+                        document.getElementById("predicted-name-permis").innerHTML = data.result.PERMIS1.name;
+                        document.getElementById("predicted-family-name-permis").innerHTML = data.result.PERMIS1.familyName;
+                        document.getElementById("predicted-birthdate-permis").innerHTML = data.result.PERMIS1.date;
+                        document.getElementById("predicted-birth-place-permis").innerHTML = data.result.PERMIS1.place;
+                        document.getElementById("predicted-CNI").innerHTML = data.result.PERMIS1.CIN;
+                        document.getElementById("predicted-delivred-place").innerHTML = data.result.PERMIS1.deliveryPlace;
+                        document.getElementById("predicted-delivred-time").innerHTML = data.result.PERMIS1.deliveryDate;
+                        document.getElementById("predicted-type").innerHTML = data.result.PERMIS1.permisType;
+                    }
+                    // predicted-duplicata
+                    // predicted-validity
+                    // predicted-serie-1
+                    // predicted-serie-2
+                    if (data.result.PERMIS2) {
+                        // document.getElementById("predicted-duplicata").innerHTML = data.result.PERMIS2.;
+                        document.getElementById("predicted-validity").innerHTML = data.result.PERMIS2.endOfValidity;
+                        document.getElementById("predicted-serie-1").innerHTML = data.result.PERMIS2.smallSeries;
+                        document.getElementById("predicted-serie-2").innerHTML = data.result.PERMIS2.largeSeries;
+                    }
                 }
             });
     }
