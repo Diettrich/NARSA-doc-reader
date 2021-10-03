@@ -13,7 +13,16 @@ const DBName = process.env.DBNAME || "RECLAMATION";
 
 let config;
 
-if (process.env.TRUSTSERVERCERTIFICATE) {
+// string to boolean
+function strToBool(str) {
+    if (str === "true") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+if (serverIP(process.env.TRUSTSERVERCERTIFICATE)) {
     config = {
         server: serverIP, // or "localhost"
         options: {
