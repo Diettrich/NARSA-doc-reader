@@ -22,7 +22,7 @@ function strToBool(str) {
     }
 }
 
-if (serverIP(process.env.TRUSTSERVERCERTIFICATE)) {
+if (strToBool(process.env.TRUSTSERVERCERTIFICATE)) {
     config = {
         server: serverIP, // or "localhost"
         options: {
