@@ -26,7 +26,7 @@ if (strToBool(process.env.TRUSTSERVERCERTIFICATE)) {
     config = {
         server: serverIP, // or "localhost"
         options: {
-            port: DBPort,
+            port: parseInt(DBPort),
             database: DBName,
             trustServerCertificate: true,
             // useColumnNames: true,
