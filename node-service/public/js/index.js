@@ -117,6 +117,110 @@ const preview = (selected) => (e) => {
     modal.hide();
 }
 
+const verified = `
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+  <path d="M13.485 1.431a1.473 1.473 0 0 1 2.104 2.062l-7.84 9.801a1.473 1.473 0 0 1-2.12.04L.431 8.138a1.473 1.473 0 0 1 2.084-2.083l4.111 4.112 6.82-8.69a.486.486 0 0 1 .04-.045z"/>
+</svg>
+`
+
+const notVerified = `
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+  <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"/>
+</svg>
+`
+
+function printPrediction(data) {
+    // "predicted-name"
+    // "predicted-family-name"
+    // "predicted-date"
+    // "predicted-place"
+    // "predicted-valid-date"
+    // "predicted-id"
+    console.log(data.result)
+    if (data.result.CIN1) {
+        document.getElementById("predicted-name").innerHTML = data.result.CIN1.name;
+        document.getElementById("predicted-family-name").innerHTML = data.result.CIN1.familyName;
+        document.getElementById("predicted-date").innerHTML = data.result.CIN1.date;
+        document.getElementById("predicted-place").innerHTML = data.result.CIN1.place;
+        document.getElementById("predicted-valid-date").innerHTML = data.result.CIN1.validDate;
+        document.getElementById("predicted-id").innerHTML = data.result.CIN1.id;
+    }
+    // predicted-id-back
+    // predicted-valid-date-back
+    // predicted-father
+    // predicted-mother
+    // predicted-address
+    // predicted-marital-status
+    // predicted-gender
+    if (data.result.CIN2) {
+        document.getElementById("predicted-id-back").innerHTML = data.result.CIN2.id;
+        document.getElementById("predicted-valid-date-back").innerHTML = data.result.CIN2.validDate;
+        document.getElementById("predicted-father").innerHTML = data.result.CIN2.fatherName;
+        document.getElementById("predicted-mother").innerHTML = data.result.CIN2.motherName;
+        document.getElementById("predicted-address").innerHTML = data.result.CIN2.address;
+        document.getElementById("predicted-marital-status").innerHTML = data.result.CIN2.maritalStatus;
+        document.getElementById("predicted-gender").innerHTML = data.result.CIN2.gender;
+    }
+    // predicted-num-permis
+    // predicted-name-permis
+    // predicted-family-name-permis
+    // predicted-birthdate-permis
+    // predicted-birth-place-permis
+    // predicted-CNI
+    // predicted-delivred-time
+    // predicted-type
+    if (data.result.PERMIS1) {
+        document.getElementById("predicted-num-permis").innerHTML = data.result.PERMIS1.permisNumber;
+        document.getElementById("predicted-name-permis").innerHTML = data.result.PERMIS1.name;
+        document.getElementById("predicted-family-name-permis").innerHTML = data.result.PERMIS1.familyName;
+        document.getElementById("predicted-birthdate-permis").innerHTML = data.result.PERMIS1.date;
+        document.getElementById("predicted-birth-place-permis").innerHTML = data.result.PERMIS1.place;
+        document.getElementById("predicted-CNI").innerHTML = data.result.PERMIS1.CIN;
+        document.getElementById("predicted-delivred-place").innerHTML = data.result.PERMIS1.deliveryPlace;
+        document.getElementById("predicted-delivred-time").innerHTML = data.result.PERMIS1.deliveryDate;
+        document.getElementById("predicted-type").innerHTML = data.result.PERMIS1.permisType;
+    }
+    // predicted-duplicata
+    // predicted-validity
+    // predicted-serie-1
+    // predicted-serie-2
+    if (data.result.PERMIS2) {
+        // document.getElementById("predicted-duplicata").innerHTML = data.result.PERMIS2.;
+        document.getElementById("predicted-validity").innerHTML = data.result.PERMIS2.endOfValidity;
+        document.getElementById("predicted-serie-1").innerHTML = data.result.PERMIS2.smallSeries;
+        document.getElementById("predicted-serie-2").innerHTML = data.result.PERMIS2.largeSeries;
+    }
+}
+
+
+// return-num-permis
+// return-name-permis
+// return-family-name-permis
+// return-birth-place-permis
+// return-CNI
+function nothingFound() {
+    document.getElementById("return-num-permis").innerHTML = notVerified;
+    document.getElementById("return-name-permis").innerHTML = notVerified;
+    document.getElementById("return-family-name-permis").innerHTML = notVerified;
+    document.getElementById("return-birth-place-permis").innerHTML = notVerified;
+    document.getElementById("return-CNI").innerHTML = notVerified;
+}
+
+// "result": {
+//     "nom": "FIZAZI",
+//     "prenom": "HICHAM",
+//     "numeroCIN": "BE474153",
+//     "ville": "CASABLANCA",
+//     "numeroPermis": "N/A"
+// }
+function found(data) {
+    document.getElementById("return-num-permis").innerHTML = verified + " (" + data.numeroPermis + ")";
+    document.getElementById("return-name-permis").innerHTML = verified + " (" + data.nom + ")";
+    document.getElementById("return-family-name-permis").innerHTML = verified + " (" + data.prenom + ")";
+    document.getElementById("return-birth-place-permis").innerHTML = verified + " (" + data.ville + ")";
+    document.getElementById("return-CNI").innerHTML = verified + " (" + data.numeroCIN + ")";
+}
+
 function submit() {
     if (canSubmit) {
         fetch("http://127.0.0.1:5000/api", {
@@ -126,68 +230,25 @@ function submit() {
             .then(response => response.json())
             .then(data => {
                 if (data.status === "success") {
-
-                    // "predicted-name"
-                    // "predicted-family-name"
-                    // "predicted-date"
-                    // "predicted-place"
-                    // "predicted-valid-date"
-                    // "predicted-id"
-                    console.log(data.result)
-                    if (data.result.CIN1) {
-                        document.getElementById("predicted-name").innerHTML = data.result.CIN1.name;
-                        document.getElementById("predicted-family-name").innerHTML = data.result.CIN1.familyName;
-                        document.getElementById("predicted-date").innerHTML = data.result.CIN1.date;
-                        document.getElementById("predicted-place").innerHTML = data.result.CIN1.place;
-                        document.getElementById("predicted-valid-date").innerHTML = data.result.CIN1.validDate;
-                        document.getElementById("predicted-id").innerHTML = data.result.CIN1.id;
-                    }
-                    // predicted-id-back
-                    // predicted-valid-date-back
-                    // predicted-father
-                    // predicted-mother
-                    // predicted-address
-                    // predicted-marital-status
-                    // predicted-gender
-                    if (data.result.CIN2) {
-                        document.getElementById("predicted-id-back").innerHTML = data.result.CIN2.id;
-                        document.getElementById("predicted-valid-date-back").innerHTML = data.result.CIN2.validDate;
-                        document.getElementById("predicted-father").innerHTML = data.result.CIN2.fatherName;
-                        document.getElementById("predicted-mother").innerHTML = data.result.CIN2.motherName;
-                        document.getElementById("predicted-address").innerHTML = data.result.CIN2.address;
-                        document.getElementById("predicted-marital-status").innerHTML = data.result.CIN2.maritalStatus;
-                        document.getElementById("predicted-gender").innerHTML = data.result.CIN2.gender;
-                    }
-                    // predicted-num-permis
-                    // predicted-name-permis
-                    // predicted-family-name-permis
-                    // predicted-birthdate-permis
-                    // predicted-birth-place-permis
-                    // predicted-CNI
-                    // predicted-delivred-time
-                    // predicted-type
-                    if (data.result.PERMIS1) {
-                        document.getElementById("predicted-num-permis").innerHTML = data.result.PERMIS1.permisNumber;
-                        document.getElementById("predicted-name-permis").innerHTML = data.result.PERMIS1.name;
-                        document.getElementById("predicted-family-name-permis").innerHTML = data.result.PERMIS1.familyName;
-                        document.getElementById("predicted-birthdate-permis").innerHTML = data.result.PERMIS1.date;
-                        document.getElementById("predicted-birth-place-permis").innerHTML = data.result.PERMIS1.place;
-                        document.getElementById("predicted-CNI").innerHTML = data.result.PERMIS1.CIN;
-                        document.getElementById("predicted-delivred-place").innerHTML = data.result.PERMIS1.deliveryPlace;
-                        document.getElementById("predicted-delivred-time").innerHTML = data.result.PERMIS1.deliveryDate;
-                        document.getElementById("predicted-type").innerHTML = data.result.PERMIS1.permisType;
-                    }
-                    // predicted-duplicata
-                    // predicted-validity
-                    // predicted-serie-1
-                    // predicted-serie-2
-                    if (data.result.PERMIS2) {
-                        // document.getElementById("predicted-duplicata").innerHTML = data.result.PERMIS2.;
-                        document.getElementById("predicted-validity").innerHTML = data.result.PERMIS2.endOfValidity;
-                        document.getElementById("predicted-serie-1").innerHTML = data.result.PERMIS2.smallSeries;
-                        document.getElementById("predicted-serie-2").innerHTML = data.result.PERMIS2.largeSeries;
-                    }
+                    printPrediction(data)
                 }
+            })
+            .then((cin) => {
+                fetch("/api", {
+                    method: "POST",
+                    body: {
+                        cin: cin
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            found(data);
+                        }
+                        else {
+                            found(data);
+                        }
+                    })
             });
     }
 }
