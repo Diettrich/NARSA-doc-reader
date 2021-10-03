@@ -8,21 +8,14 @@ const PORT = process.env.PORT || 3000;
 const serverIP = process.env.SERVER || 'localhost'
 const DBPort = process.env.DBPORT || 1401;
 const DBUserName = process.env.USERNAME || "SA";
-const DBPassword = process.env.PASSWORD || "caesar12II";
+const DBPassword = process.env.PASSWORD || "asmae_ajerd123";
 const DBName = process.env.DBNAME || "RECLAMATION";
 
 let config;
 
-// string to boolean
-function strToBool(str) {
-    if (str === "true") {
-        return true;
-    } else {
-        return false;
-    }
-}
 
-if (strToBool(process.env.TRUSTSERVERCERTIFICATE)) {
+
+if (process.env.TRUSTSERVERCERTIFICATE || process.env.TRUSTSERVERCERTIFICATE === 'true') {
     config = {
         server: serverIP, // or "localhost"
         options: {
@@ -50,23 +43,6 @@ else {
         }
     };
 }
-
-config = {
-    server: "localhost", // or "localhost"
-    options: {
-        port: DBPort,
-        database: DBName,
-        trustServerCertificate: true,
-        // useColumnNames: true,
-    },
-    authentication: {
-        type: "default",
-        options: {
-            userName: DBUserName,
-            password: DBPassword,
-        }
-    }
-};
 
 const connection = new Connection(config);
 connection.on('connect', (err) => {
