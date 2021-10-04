@@ -2,15 +2,7 @@ version: "3.9"
 services:
   node-service:
     build: ./node-service
-    ports:
-      - "8080:8080"
+    network_mode: "host"
   python-service:
     build: ./python-service
-    ports:
-      - "5000:5000"
-  # mssql-service:
-  #   build: ./mssql-service
-  #   ports:
-  #     - "1401:1433"
-  #   volumes:
-  #     - "./sql1data:/var/opt/mssql"
+    network_mode: "host"

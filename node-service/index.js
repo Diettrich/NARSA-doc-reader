@@ -6,43 +6,28 @@ var Request = require('tedious').Request;
 
 const PORT = process.env.PORT || 3000;
 const serverIP = process.env.SERVER || 'localhost'
+// const DBPort = process.env.DBPORT || 1401;
 const DBPort = process.env.DBPORT || 1401;
 const DBUserName = process.env.USERNAME || "SA";
-const DBPassword = process.env.PASSWORD || "asmae_ajerd123";
+const DBPassword = process.env.PASSWORD || "caesar12II";
 const DBName = process.env.DBNAME || "RECLAMATION";
 
-let config;
 
-
-
-if (process.env.TRUSTSERVERCERTIFICATE || process.env.TRUSTSERVERCERTIFICATE === 'true') {
-    config = {
-        server: serverIP, // or "localhost"
+var config = {
+    server: serverIP, // or "localhost"
+    options: {
+        port: DBPort,
+        database: DBName,
+        // useColumnNames: true,
+    },
+    authentication: {
+        type: "default",
         options: {
-            port: parseInt(DBPort),
-            database: DBName,
-            trustServerCertificate: true,
-            // useColumnNames: true,
+            userName: DBUserName,
+            password: DBPassword,
         }
-    };
-}
-
-else {
-    config = {
-        server: serverIP,
-        options: {
-            port: DBPort,
-            database: DBName,
-        },
-        authentication: {
-            type: "default",
-            options: {
-                userName: DBUserName,
-                password: DBPassword,
-            }
-        }
-    };
-}
+    }
+};
 
 const connection = new Connection(config);
 connection.on('connect', (err) => {
