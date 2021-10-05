@@ -9,7 +9,7 @@ const serverIP = process.env.SERVER || 'localhost'
 // const DBPort = process.env.DBPORT || 1401;
 const DBPort = process.env.DBPORT || 1401;
 const DBUserName = process.env.USERNAME || "SA";
-const DBPassword = process.env.PASSWORD || "test123AA";
+const DBPassword = process.env.PASSWORD || "caesar12II";
 const DBName = process.env.DBNAME || "RECLAMATION";
 
 
